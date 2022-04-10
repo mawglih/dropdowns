@@ -7,6 +7,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import FormControl from '@material-ui/core/FormControl';
 import {InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Grid} from '@material-ui/core';
+import { RepeatTwoTone } from '@material-ui/icons';
 
 const ForSelect = [ 
   {id: 1, name: 'Price Range', items: ['10-20', '20-50', '50-100', '100-500', '500 - 5000'],},
@@ -56,7 +57,13 @@ const useStyles = makeStyles((theme) => createStyles({
   },
   formControl: {
     minWidth: '120px',
-  }
+  },
+  dropdownStyle: {
+    display: 'grid',
+    gridTemplateRows: 'repeat(4, min-content)',
+    gridAutoColumns: 'repeat(2,minmax(min-content, max-content))',
+    color: 'red',
+  },
 }));
 
 const DropdownContainer = () => {
@@ -111,41 +118,30 @@ const DropdownContainer = () => {
               input= {<Input />}
               renderValue={(selected) => selected.join(', ')}
               SelectDisplayProps={{ style: { paddingTop: 8, paddingBottom: 8, border: '1px solid #666',  marginRight: '10px', borderRadius: '1px' } }}
-              variant="outlined"
+              variant="menu"
               disableUnderline
               MenuProps={{
                 anchorOrigin: {
                   vertical: "bottom",
                   horizontal: "left"
                 },
-                getContentAnchorEl: null
+                getContentAnchorEl: null,
+                classes: { list:classes.dropdownStyle },
               }}
-            >
-              <Grid
-                container
-                direction='row'
-                justifyContent='space-between'
-                alignItems='flex-start'
-                alignContent='space-between'
               >
                 {x.items.map((item, idx) => (
-                  <Grid
-                    lg={4}
-                    spacing={2}
-                    zeroMinWidth
-                  >
+
                     <MenuItem
                       key={idx}
                       value={item}
                       noWrap
                       item
+
                     >
                       <Checkbox checked={filterName.indexOf(item) > -1} />
                       <ListItemText primary={item} />
                     </MenuItem>
-                  </Grid>
                 ))}
-              </Grid>
             </Select>
           </FormControl>
         ))}
