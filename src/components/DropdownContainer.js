@@ -81,6 +81,15 @@ const useStyles = makeStyles((theme) => createStyles({
   paper: {
     color: 'red',
   },
+  label: {
+    color: 'green',
+    backgroundColor: 'blue',
+  },
+  select: {
+    '& .MuiSvgIcon-root': {
+      color: 'red',
+    }
+  },
 }));
 
 const DropdownContainer = () => {
@@ -125,17 +134,29 @@ const DropdownContainer = () => {
       </div>
       <div className='buttons'>
         {ForSelect.map(x => (
-          <FormControl variant='outlined' key={x.id} className={classes.formControl} style={{ minWidth: '120px'}}>
-            <InputLabel id={x.id} shrink={false}>{x.name}</InputLabel>
+          <FormControl
+            variant='outlined'
+            key={x.id}
+          >
+            <InputLabel 
+              id={x.id}
+              variant='standard'
+              shrink={false}
+              style = {{
+                color: 'cadetblue',
+                paddingLeft: '5px',
+              }}
+            >
+              {x.name}
+            </InputLabel>
             <Select
-              // labelId={id}
               multiple
               value={filterName}
               onChange={handleChange}
               input= {<Input />}
               renderValue={(selected) => selected.join(', ')}
               SelectDisplayProps={{ style: { paddingTop: 8, paddingBottom: 8, border: '1px solid #666',  marginRight: '10px', borderRadius: '1px' } }}
-              variant="menu"
+              // variant="menu"
               disableUnderline
               MenuProps={{
                 anchorOrigin: {
@@ -144,7 +165,7 @@ const DropdownContainer = () => {
                 },
                 getContentAnchorEl: null,
                 classes: {
-                  root: classes.paper,
+                  root: classes.select,
                 },
                 MenuListProps: {
                   style: {
@@ -156,7 +177,8 @@ const DropdownContainer = () => {
                     gridColumnGap: '40px',
  
                   },
-                }
+                },
+                
               }}
               >
                 {x.items.map((item, idx) => (
