@@ -57,11 +57,28 @@ const useStyles = makeStyles((theme) => createStyles({
   },
   formControl: {
     minWidth: '120px',
+    '& .MuiList-root': {
+      color: 'red',
+    },
   },
-  dropdownStyle: {
-    display: 'grid',
-    gridTemplateRows: 'repeat(4, min-content)',
-    gridAutoColumns: 'repeat(2,minmax(min-content, max-content))',
+  paperClass: {
+    '& ul': {
+      display: 'grid',
+      gridTemplateRows: 'repeat(4, 40px)',
+      gridTemplateColumns: '160px minmax(160px, min-content)',
+      gridAutoFlow: 'column',
+      gridRowGap: '10px',
+      gridColumnGap: '40px',
+      backgroundColor: 'red',
+    }
+  },
+  listClass : {
+    backgroundColor: 'yellow',
+  },
+  menuItem: {
+    border: '1px #222 solid',
+  },
+  paper: {
     color: 'red',
   },
 }));
@@ -126,11 +143,24 @@ const DropdownContainer = () => {
                   horizontal: "left"
                 },
                 getContentAnchorEl: null,
-                classes: { list:classes.dropdownStyle },
+                classes: {
+                  root: classes.paper,
+                },
+                MenuListProps: {
+                  style: {
+                    display: 'grid',
+                    gridTemplateRows: 'repeat(4, 50px)',
+                    gridTemplateColumns: '180px minmax(180px, min-content)',
+                    gridAutoFlow: 'column',
+                    gridRowGap: '10px',
+                    gridColumnGap: '40px',
+ 
+                  },
+                }
               }}
               >
                 {x.items.map((item, idx) => (
-
+                  <div className={classes.menuItem}>
                     <MenuItem
                       key={idx}
                       value={item}
@@ -141,6 +171,8 @@ const DropdownContainer = () => {
                       <Checkbox checked={filterName.indexOf(item) > -1} />
                       <ListItemText primary={item} />
                     </MenuItem>
+                  </div>
+    
                 ))}
             </Select>
           </FormControl>
