@@ -90,6 +90,9 @@ const useStyles = makeStyles((theme) => createStyles({
       color: 'red',
     }
   },
+  icon: {
+    color: 'green',
+  },
 }));
 
 const DropdownContainer = () => {
@@ -166,19 +169,18 @@ const DropdownContainer = () => {
                 getContentAnchorEl: null,
                 classes: {
                   root: classes.select,
+                  iconOutlined: classes.icon,
                 },
                 MenuListProps: {
                   style: {
                     display: 'grid',
-                    gridTemplateRows: 'repeat(4, 50px)',
-                    gridTemplateColumns: '180px minmax(180px, min-content)',
+                    gridTemplateRows: 'repeat(4, min-content)',
+                    gridTemplateColumns: 'minmax(180px, min-content)',
                     gridAutoFlow: 'column',
                     gridRowGap: '10px',
                     gridColumnGap: '40px',
- 
                   },
-                },
-                
+                }, 
               }}
               >
                 {x.items.map((item, idx) => (
@@ -188,7 +190,6 @@ const DropdownContainer = () => {
                       value={item}
                       noWrap
                       item
-
                     >
                       <Checkbox checked={filterName.indexOf(item) > -1} />
                       <ListItemText primary={item} />
