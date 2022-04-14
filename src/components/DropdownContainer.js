@@ -184,18 +184,15 @@ const DropdownContainer = () => {
               }}
               >
                 {x.items.map((item, idx) => (
-                  <div className={classes.menuItem}>
-                    <MenuItem
-                      key={idx}
-                      value={item}
-                      noWrap
-                      item
-                    >
-                      <Checkbox checked={filterName.indexOf(item) > -1} />
-                      <ListItemText primary={item} />
-                    </MenuItem>
-                  </div>
-    
+                  <MenuItem
+                    key={idx}
+                    value={item}
+                    noWrap
+                    item
+                  >
+                    <Checkbox checked={filterName.indexOf(item) > -1} />
+                    <ListItemText primary={item} />
+                  </MenuItem>
                 ))}
             </Select>
           </FormControl>
