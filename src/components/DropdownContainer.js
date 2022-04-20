@@ -246,8 +246,14 @@ const DropdownContainer = () => {
               onChange={handleChange}
               input= {<Input />}
               renderValue={(selected) => selected.join(', ')}
-              SelectDisplayProps={{ style: { paddingTop: 8, paddingBottom: 8, border: '1px solid #666',  marginRight: '10px', borderRadius: '1px' } }}
-              // variant="menu"
+              SelectDisplayProps={{ 
+                style: {
+                  paddingTop: 8,
+                  paddingBottom: 8,
+                  border: '1px solid #666', 
+                  marginRight: '10px',
+                  borderRadius: '1px' } 
+                }}
               disableUnderline
               MenuProps={{
                 anchorOrigin: {
