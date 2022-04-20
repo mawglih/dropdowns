@@ -8,6 +8,7 @@ import ImportExportIcon from '@material-ui/icons/ImportExport';
 import FormControl from '@material-ui/core/FormControl';
 import {InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Grid} from '@material-ui/core';
 import { RepeatTwoTone } from '@material-ui/icons';
+import CustomCheckbox from './CustomCheckbox';
 
 const ForSelect = [ 
   {id: 1, name: 'Price Range', items: ['10-20', '20-50', '50-100', '100-500', '500 - 5000'],},
@@ -36,6 +37,45 @@ const SortButton = withStyles({
   }
 })(Button);
 
+
+
+const GreenCheckbox = withStyles({
+  root: {
+    gridColumnStart: 1,
+    '&:hover': {
+
+    },
+    "&$checked": {
+      color: "#13c552"
+    }
+  },
+  checked: {}
+})((props) => <Checkbox color="default" {...props} />);
+
+const CheckboxWithBlackTick = withStyles({
+  root: {
+    gridColumnStart: 2,
+    "&$checked": {
+      color: "#13c552",
+      "& .MuiIconButton-label": {
+        position: "relative",
+        zIndex: 0
+      },
+      "& .MuiIconButton-label:after": {
+        content: '""',
+        left: 4,
+        top: 4,
+        height: 15,
+        width: 15,
+        position: "absolute",
+        backgroundColor: "black",
+        zIndex: -1
+      }
+    }
+  },
+  checked: {},
+  })(Checkbox);
+
 const useStyles = makeStyles((theme) => createStyles({
   button: {
     margin: theme.spacing(1),
@@ -61,19 +101,13 @@ const useStyles = makeStyles((theme) => createStyles({
       color: 'red',
     },
   },
-  paperClass: {
-    '& ul': {
-      display: 'grid',
-      gridTemplateRows: 'repeat(4, 40px)',
-      gridTemplateColumns: '160px minmax(160px, min-content)',
-      gridAutoFlow: 'column',
-      gridRowGap: '10px',
-      gridColumnGap: '40px',
-      backgroundColor: 'red',
-    }
-  },
   listClass : {
-    backgroundColor: 'yellow',
+    display: 'grid',
+    gridTemplateRows: 'repeat(4, min-content)',
+    gridTemplateColumns: 'minmax(180px, min-content)',
+    gridAutoFlow: 'column',
+    gridRowGap: '10px',
+    gridColumnGap: '40px',
   },
   menuItem: {
     border: '1px #222 solid',
@@ -86,20 +120,73 @@ const useStyles = makeStyles((theme) => createStyles({
     backgroundColor: 'blue',
   },
   select: {
-    '& .MuiSvgIcon-root': {
-      color: 'red',
-    }
+    // '& .MuiSvgIcon-root': {
+    //   color: 'red',
+    // }
   },
   icon: {
     color: 'green',
   },
+  checkedClass: {
+    "&:checked": {
+      "& .MuiIconButton-label": {
+        position: "relative",
+        zIndex: 0
+      },
+      "& .MuiIconButton-label:after": {
+        content: '""',
+        left: 4,
+        top: 4,
+        height: 14,
+        width: 14,
+        position: "absolute",
+        backgroundColor: "lightgreen",
+        zIndex: -1
+      },
+    },
+  },
+  checkRoot: {
+    "&:hover": {
+      backgroundColor: "transparent"
+    }
+  },
+  checkIcon: {
+    width: 14,
+    height: 14,
+    backgroundColor: "white",
+    "input:hover ~ &": {
+      backgroundColor: "#ebf1f5"
+    },
+    "input:disabled ~ &": {
+      boxShadow: "none"
+    }
+  },
+  checkCheckedIcon: {
+    backgroundColor: "#137cbd",
+    backgroundImage: "blue",
+    "&:before": {
+      display: "block",
+      width: 16,
+      height: 16,
+      backgroundColor: "gray"
+    },
+    "input:hover ~ &": {
+      backgroundColor: "#106ba3"
+    }
+  },
 }));
+
+
+
 
 const DropdownContainer = () => {
   const [hideFilters, setHideFilters] = useState(false);
   const [displaytext, setDisplayText] = useState('Hide Filter');
   const [arrowIcon, setArrowIcon] = useState( <ExpandLessIcon /> );
   const [filterName, setFilterName] = useState([]);
+  const [isChecked, setIsChecked] = useState(true);
+  const [isChecked1, setIsChecked1] = useState(true);
+  const [isChecked2, setIsChecked2] = useState(true);
 
   const handleChange = () => {
 
@@ -116,6 +203,7 @@ const DropdownContainer = () => {
     } 
   }
   const classes = useStyles;
+  console.log('checked d', isChecked);
   return (
     <div className='container'>
       <div className='buttons'>
@@ -190,7 +278,13 @@ const DropdownContainer = () => {
                     noWrap
                     item
                   >
-                    <Checkbox checked={filterName.indexOf(item) > -1} />
+                    <Checkbox
+                      checked={isChecked} 
+                      className={{
+                        root: classes.checkedClass,
+                      }} 
+                      onChange={() => setIsChecked(!isChecked)}
+                    />
                     <ListItemText primary={item} />
                   </MenuItem>
                 ))}
@@ -198,6 +292,18 @@ const DropdownContainer = () => {
           </FormControl>
         ))}
         
+      </div>
+      <div className="buttons">
+        <GreenCheckbox checked={isChecked1} onChange={() => setIsChecked1((e) => e.target.checked)} disableRipple/>
+        <CheckboxWithBlackTick checked={isChecked2} onChange={() => setIsChecked2((e) => e.target.checked)} />
+        <CustomCheckbox checked={isChecked} onChange={() => setIsChecked((e) => e.target.checked)} />
+        <Checkbox
+          classes = {{
+            root: classes.checkRoot,
+            icon: classes.checkIcon,
+            checkedIcon: classes.checkCheckedIcon,
+          }}
+        />
       </div>
     </div>
   )
