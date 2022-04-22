@@ -6,7 +6,7 @@ import { createStyles, withStyles } from '@material-ui/styles';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import FormControl from '@material-ui/core/FormControl';
-import {InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Grid} from '@material-ui/core';
+import {InputLabel, Select, InputBase, MenuItem, Checkbox, ListItemText, Grid} from '@material-ui/core';
 import { RepeatTwoTone } from '@material-ui/icons';
 import CustomCheckbox from './CustomCheckbox';
 
@@ -244,7 +244,7 @@ const DropdownContainer = () => {
               multiple
               value={filterName}
               onChange={handleChange}
-              input= {<Input />}
+              input= {<InputBase />}
               renderValue={(selected) => selected.join(', ')}
               SelectDisplayProps={{ 
                 style: {
